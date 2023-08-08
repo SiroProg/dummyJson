@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:http/http.dart';
+
+import 'models/todo_model.dart';
 
 void main(List<String> args) async {
   String baseUrl = 'https://dummyjson.com/todos';
@@ -6,5 +10,10 @@ void main(List<String> args) async {
 
   Response responseGet = await get(uri);
 
-  print(responseGet.body);
+  if (responseGet.statusCode == 200) {
+    TodoModel todoModel = TodoModel.fromJson(jsonDecode(responseGet.body));
+    print(todoModel.todos[3].id);
+  } else {
+    print('Error: ${responseGet.statusCode}');
+  }
 }
