@@ -42,4 +42,13 @@ class Todos {
       userId: json['userId'] as int,
     );
   }
+
+  Map<String, Object?> toMap() {
+    return <String, Object?>{
+      'id': id,
+      'todo': todo,
+      'completed': completed,
+      'userId': userId,
+    };
+  }
 }

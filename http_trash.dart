@@ -6,14 +6,15 @@ import 'models/todo_model.dart';
 
 void main(List<String> args) async {
   String baseUrl = 'https://dummyjson.com/todos';
-  Uri uri = Uri.parse('$baseUrl/user/5');
+  Uri uri = Uri.parse('$baseUrl/add');
 
-  Response responseGet = await get(uri);
+  Todos newTodo = Todos(id: 156, todo: 'add todo', completed: true, userId: 5);
 
-  if (responseGet.statusCode == 200) {
-    TodoModel todoModel = TodoModel.fromJson(jsonDecode(responseGet.body));
-    print(todoModel.todos[3].id);
-  } else {
-    print('Error: ${responseGet.statusCode}');
-  }
+  Response responsePost = await post(
+    uri,
+    headers: <String, String>{'Content-Type': 'application/json'},
+    body: jsonEncode(newTodo.toMap()),
+  );
+
+  print(responsePost.body);
 }
